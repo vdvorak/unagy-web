@@ -9,7 +9,6 @@
 (function () {
   "use strict";
 
-  var STATE_MACHINE = "00main";
   // Artboard nevykreslí žádnou postavu, dokud se přes data binding nevybere.
   // Nejde o uživatelský picker — jen pevně zvolíme, jak Luna vypadá.
   var VIEW_MODEL = "RJ_Data";
@@ -30,10 +29,17 @@
     var riveInstance = new R.Rive({
       src: "/assets/luna/luna.riv",
       canvas: canvas,
+      // Bez explicitního stateMachines přehraje Rive výchozí state machine artboardu.
       autoplay: true,
-      stateMachines: STATE_MACHINE,
       layout: new R.Layout({ fit: R.Fit.Contain, alignment: R.Alignment.Center }),
       onLoad: function () {
+        // Diagnostika: skutečné názvy v souboru (kdyby se nic nevykreslilo).
+        try {
+          console.log("luna.js: artboard =", riveInstance.activeArtboard,
+                      "| stateMachines =", riveInstance.stateMachineNames,
+                      "| animations =", riveInstance.animationNames);
+        } catch (_) {}
+
         // Bez resize renderuje Rive do špatně dimenzovaného plátna (často prázdné/rozmazané).
         try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
 
