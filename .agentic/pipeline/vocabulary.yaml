@@ -1,0 +1,39 @@
+# vocabulary.yaml — řízené slovníky enginu. Jediný zdroj pravdy pro hodnoty, které engine
+# rozpoznává. **Fail-closed: neznámá hodnota = chyba, ne tichý fallback.** Sourozenec
+# artifacts.yaml (typový registr). Čte `check.sh` (statická validace grafu + project-config)
+# a `result.sh` (validace envelopů). Chybí-li tento soubor → checky se SKIPnou (graceful).
+#
+# Proč: dřív byly tyhle slovníky volné stringy s tichým fallbackem (typo flagu → „FREE" →
+# judgment prompt; neznámá severity → tiše blocking). Determinismus chce odmítnout, ne hádat.
+
+meta:
+  version: 1
+
+# Flagy použitelné v `when` predikátech. kind: bool | enum. default = engine fallback (info).
+#
+# scope (P5/#5 — model project vs feature):
+#   project = schopnost/architektura PROJEKTU (z project-config; engine odvozuje z active_targets, #1)
+#   feature = co KONKRÉTNÍ feature touchne (Vision/Ted nastaví ve spec/envelope)
+# Routing role = `project-schopnost && feature-použití`:
+#   web      when: project.targets.web && spec.has_ui      (projekt cílí web A feature má UI)
+#   db-schema when: project.has_db && touches_db           (projekt má DB A feature ji touchne)
+# → backend-only feature na web+db projektu nespustí web/db-schema. Project flag NEpatří do spec,
+#   feature flag NEpatří do project-config (i když to dnes engine tvrdě nevynucuje).
+flags:
+  has_server:    { kind: bool, scope: project }
+  has_db:        { kind: bool, scope: project }
+  has_deploy:    { kind: bool, scope: project }
+  design_source: { kind: enum, scope: project, values: [author, intake, derive], default: author }
+  has_ui:        { kind: bool, scope: feature }
+  has_signature: { kind: bool, scope: feature }
+  touches_db:    { kind: bool, scope: feature, default: has_db }    # B2; default = project.has_db
+
+targets: [web, mobile, desktop]              # project.targets.<x> (scope: project)
+classes: [feature, bugfix, improvement]      # intake klasifikace (class == <x>)
+faults:  [db-schema, server-logic, contract, spec, none]   # diagnostik architecture (fault == <x>)
+
+node_types:  [agent, gate, human-gate, router, join, terminal]
+edge_kinds:  [normal, return, fork, fan-out]   # chybějící kind == normal
+severities:  [blocking, advisory]              # gate FAIL severity (E1)
+model_tiers: [haiku, sonnet, opus]
+phases:      [T1, T2, T3, T3-post]
