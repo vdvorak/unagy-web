@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- B6: CSP -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 img-src 'self' data:;
+                 style-src 'self';
+                 script-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'none';
+                 frame-ancestors 'none';">
+
+  <!-- C1: Title -->
+  <title>Stránka nenalezena — Unagy</title>
+
+  <!-- C2: Meta description -->
+  <meta name="description" content="Tato stránka neexistuje. Vrať se na hlavní stránku Unagy.">
+
+  <!-- Noindex pro 404 -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="canonical" href="https://unagy.cz">
+  <meta name="theme-color" content="#3B7DD8">
+
+  <!-- Styly (tokeny + main style; .error-page třídy jsou v style.css) -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B7DD8'/><text y='.9em' font-size='70' x='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='system-ui'>U</text></svg>">
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Přeskočit na obsah</a>
+
+  <main id="main-content">
+    <div class="error-page">
+      <p class="error-page__code" aria-hidden="true">404</p>
+      <h1 class="error-page__title">Stránka nenalezena</h1>
+      <p class="error-page__text">
+        Tato stránka neexistuje nebo byla přesunuta.
+        Vrať se na hlavní stránku a stáhni si Unagy.
+      </p>
+      <div class="error-page__actions">
+        <a href="/" class="btn btn--primary btn--large">
+          Zpět na úvod
+        </a>
+        <a href="https://app.unagy.cz"
+           class="btn btn--outline btn--large"
+           target="_blank"
+           rel="noopener noreferrer">
+          Webová aplikace
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- B5: Žádný inline <script> -->
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!-- TODO: Nahradit reálným QR kódem pro Google Play URL aplikace Unagy.
+     Placeholder — NESMÍ jít do produkce (viz acceptance A3, A6). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-label="QR kód pro stažení aplikace Unagy z Google Play — placeholder, bude doplněn">
+  <title>QR kód pro Google Play — placeholder</title>
+  <!-- Pozadí -->
+  <rect width="200" height="200" rx="8" fill="#E8EDF2"/>
+  <!-- Dekorativní QR-like vzor (placeholder) -->
+  <rect x="20" y="20" width="60" height="60" rx="4" fill="none" stroke="#607080" stroke-width="5"/>
+  <rect x="32" y="32" width="36" height="36" rx="2" fill="#607080"/>
+  <rect x="120" y="20" width="60" height="60" rx="4" fill="none" stroke="#607080" stroke-width="5"/>
+  <rect x="132" y="32" width="36" height="36" rx="2" fill="#607080"/>
+  <rect x="20" y="120" width="60" height="60" rx="4" fill="none" stroke="#607080" stroke-width="5"/>
+  <rect x="32" y="132" width="36" height="36" rx="2" fill="#607080"/>
+  <!-- Středový text -->
+  <rect x="82" y="82" width="36" height="36" rx="2" fill="#B0BEC5"/>
+  <text x="100" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#607080">QR KÓD</text>
+  <text x="100" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#607080">GOOGLE PLAY</text>
+  <text x="100" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#8A9BAA">bude doplněn</text>
+</svg>

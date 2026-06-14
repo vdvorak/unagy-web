@@ -1,0 +1,679 @@
+/* =============================================================
+   style.css — Unagy landing page
+   Mobile-first, plain CSS, žádný framework
+   Importuje tokens.css (přes <link> v HTML, ne @import)
+   ============================================================= */
+
+/* ---- Reset & base ----------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-link-hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Layout helper ---------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container--narrow {
+  max-width: var(--max-width-narrow);
+}
+
+/* ---- Skip link (a11y) ------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-dark);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  z-index: 1000;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  outline: 2px solid var(--color-text-on-dark);
+  outline-offset: 2px;
+}
+
+/* ---- Buttons ---------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+.btn--primary {
+  background-color: var(--color-btn-primary-bg);
+  color: var(--color-btn-primary-text);
+  border-color: var(--color-btn-primary-bg);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--color-btn-primary-hover-bg);
+  border-color: var(--color-btn-primary-hover-bg);
+  color: var(--color-btn-primary-text);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-btn-outline-text);
+  border-color: var(--color-btn-outline-border);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background-color: var(--color-btn-outline-hover-bg);
+  color: var(--color-btn-outline-text);
+}
+
+.btn--large {
+  font-size: var(--font-size-md);
+  padding: var(--space-4) var(--space-8);
+}
+
+/* ---- Header / site nav ------------------------------------ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  gap: var(--space-4);
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: var(--space-2);
+}
+
+.site-logo__wordmark {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  letter-spacing: -0.02em;
+}
+
+.site-nav {
+  display: none;  /* zobrazeno na tabletu+ */
+}
+
+.site-nav__list {
+  display: flex;
+  list-style: none;
+  gap: var(--space-6);
+}
+
+.site-nav__link {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.site-nav__link:hover {
+  color: var(--color-brand-primary);
+}
+
+.site-header__cta {
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-4);
+}
+
+/* ---- Section spacing -------------------------------------- */
+
+section {
+  padding-block: var(--space-16);
+}
+
+.section--alt {
+  background-color: var(--color-bg-section-alt);
+}
+
+.section__eyebrow {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.section__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.section__subtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  max-width: 56ch;
+}
+
+/* ---- HERO SEKCE ------------------------------------------- */
+
+.hero {
+  background-color: var(--color-brand-warm);
+  padding-block: var(--space-20) var(--space-16);
+  text-align: center;
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.hero__logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__logo-placeholder {
+  /* TODO: nahradit <img src="/img/logo.svg"> když logo bude k dispozici */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-brand-primary);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-on-dark);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  user-select: none;
+  box-shadow: var(--shadow-md);
+}
+
+.hero__app-name {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.hero__tagline {
+  /* TODO: nahradit finálním marketingovým textem */
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  max-width: 50ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+/* ---- DOWNLOAD SEKCE --------------------------------------- */
+
+.download {
+  padding-block: var(--space-16);
+}
+
+.download__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.download__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  justify-items: center;
+}
+
+.store-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  background-color: var(--color-bg-page);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 320px;
+  transition: box-shadow var(--transition-base);
+}
+
+.store-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.store-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* QR placeholder box */
+.qr-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: var(--qr-size-mobile);
+  height: var(--qr-size-mobile);
+  background-color: var(--color-placeholder-bg);
+  border: 2px dashed var(--color-placeholder-border);
+  border-radius: var(--radius-md);
+  color: var(--color-placeholder-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  padding: var(--space-3);
+  line-height: var(--line-height-base);
+}
+
+.qr-placeholder__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.qr-placeholder__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Reálný QR obrázek (bude aktivní po dodání finálních URL) */
+.qr-img {
+  display: none; /* TODO: zobrazit po nahrazení placeholderů */
+  width: var(--qr-size-mobile);
+  height: var(--qr-size-mobile);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Store badge (tlačítko s logem obchodu) */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  background-color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.store-badge:hover,
+.store-badge:focus-visible {
+  background-color: var(--color-store-badge-hover-bg);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-on-dark);
+}
+
+.store-badge:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+.store-badge__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.store-badge__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.store-badge__sub {
+  font-size: 0.65rem;
+  font-weight: var(--font-weight-normal);
+  opacity: 0.85;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.store-badge__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+}
+
+.download__fallback {
+  text-align: center;
+  margin-top: var(--space-10);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.download__fallback a {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---- WEB APP SEKCE ---------------------------------------- */
+
+.web-app {
+  background-color: var(--color-bg-section-alt);
+  text-align: center;
+  padding-block: var(--space-16);
+}
+
+.web-app__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.web-app__description {
+  /* TODO: nahradit finálním popisem webové verze */
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  max-width: 48ch;
+  line-height: var(--line-height-relaxed);
+}
+
+.web-app__url-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.web-app__url-hint strong {
+  color: var(--color-brand-primary);
+}
+
+/* ---- FOOTER ----------------------------------------------- */
+
+.site-footer {
+  background-color: var(--color-bg-footer);
+  color: var(--color-text-on-dark-muted);
+  padding-block: var(--space-12);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.site-footer__logo {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.site-footer__logo:hover {
+  color: var(--color-brand-secondary);
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  justify-content: center;
+  list-style: none;
+}
+
+.site-footer__links a {
+  color: var(--color-text-on-dark-muted);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.site-footer__links a:hover {
+  color: var(--color-text-on-dark);
+}
+
+.site-footer__copy {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-on-dark-muted);
+  opacity: 0.7;
+}
+
+/* ---- Placeholder notice (dev/staging viditelnost) --------- */
+
+.placeholder-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-placeholder-notice-bg);
+  border: 1px solid var(--color-placeholder-notice-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-placeholder-notice-text);
+  white-space: nowrap;
+}
+
+/* ---- Responsive: tablet (768px+) -------------------------- */
+
+@media (min-width: 48rem) {
+  .site-nav {
+    display: block;
+  }
+
+  .hero {
+    padding-block: var(--space-24) var(--space-20);
+  }
+
+  .hero__app-name {
+    font-size: calc(var(--font-size-3xl) * 1.3);
+  }
+
+  .hero__tagline {
+    font-size: var(--font-size-xl);
+  }
+
+  .download__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .store-card {
+    max-width: none;
+  }
+
+  .section__title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .site-footer__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .site-footer__links {
+    justify-content: flex-end;
+  }
+}
+
+/* ---- Responsive: desktop (1024px+) ------------------------ */
+
+@media (min-width: 64rem) {
+  .qr-placeholder,
+  .qr-img {
+    width: var(--qr-size-desktop);
+    height: var(--qr-size-desktop);
+  }
+
+  .hero {
+    padding-block: var(--space-24);
+  }
+
+  .download__grid {
+    max-width: 800px;
+    gap: var(--space-8);
+  }
+
+  .store-card {
+    padding: var(--space-10);
+  }
+}
+
+/* ---- 404 stránka ------------------------------------------ */
+
+.error-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-8);
+  background-color: var(--color-brand-warm);
+}
+
+.error-page__code {
+  font-size: 6rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: var(--space-4);
+}
+
+.error-page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.error-page__text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  max-width: 40ch;
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+.error-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+/* ---- Print ------------------------------------------------ */
+
+@media print {
+  .site-header,
+  .hero__actions,
+  .skip-link {
+    display: none;
+  }
+
+  body {
+    color: var(--color-print-text);
+    background: var(--color-print-bg);
+  }
+}

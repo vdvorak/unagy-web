@@ -1,0 +1,23 @@
+<!-- TODO: Nahradit reálným OG obrázkem (1200×630px PNG/JPG) pro sociální sítě.
+     Doporučená velikost: 1200×630. Placeholder — nesmí jít do produkce. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630"
+     role="img" aria-label="Unagy — sociální OG obrázek (placeholder)">
+  <title>Unagy OG image — placeholder</title>
+  <rect width="1200" height="630" fill="#3B7DD8"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B7DD8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A2332;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="80" y="80" width="120" height="120" rx="24" fill="rgba(255,255,255,0.15)"/>
+  <text x="140" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="white">U</text>
+  <text x="250" y="175" font-family="system-ui,sans-serif" font-size="96" font-weight="700" fill="white">Unagy</text>
+  <!-- TODO: nahradit finálním sloganem -->
+  <text x="80" y="280" font-family="system-ui,sans-serif" font-size="40" fill="rgba(255,255,255,0.85)">TODO: finální slogan aplikace</text>
+  <text x="80" y="560" font-family="system-ui,sans-serif" font-size="28" fill="rgba(255,255,255,0.6)">unagy.cz</text>
+  <!-- Vodoznak placeholder -->
+  <rect x="900" y="30" width="270" height="36" rx="6" fill="rgba(251,191,36,0.25)" stroke="#FBBF24" stroke-width="1"/>
+  <text x="1035" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#FBBF24">PLACEHOLDER — nesmí do produkce</text>
+</svg>
