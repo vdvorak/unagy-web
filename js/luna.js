@@ -1,13 +1,13 @@
 /**
- * luna.js — Rive companion (Luna) pro Unagy landing page. (verze 8)
+ * luna.js — Rive companion (Luna) pro Unagy landing page. (verze 9)
  * Vanilla JS, žádný framework. Rive runtime z CDN (@rive-app/canvas@2 → window.rive).
  *
- * Přehrávání (lineární animace, názvy z .riv):
- *   - na load jednou "wave" (zamávání)
- *   - pak "idle" jako klidný základ (smyčka)
- *   - občas (náhodný interval) jedna z VARIETY, po krátké době zpět na idle
- *   - stop() před každou animací → žádné překrývání
- *   - řízeno ČASOVAČEM, ne onStop (onStop = stop() způsoboval rekurzi a rychlé blikání)
+ * Přehrávání (lineární animace, názvy z .riv) — animace VŽDY doběhnou do konce:
+ *   - na load jednou "wave", pak "idle" jako klidný základ (smyčka)
+ *   - po náhodném intervalu se idle přeruší, přehraje se jedna VARIETY do konce,
+ *     a pak zpět na idle
+ *   - přepínání řízeno událostí onStop (konec animace) + příznakem pendingVariety,
+ *     takže nikdy nehrají dvě animace přes sebe a žádná se neuřízne.
  *
  * Debug: ?debug=1 vypíše state machine a animace přímo na stránku.
  */
@@ -15,14 +15,13 @@
 (function () {
   "use strict";
 
-  var VERSION = 8;
+  var VERSION = 9;
 
   var IDLE = "idle";
   var INTRO = "wave";                 // jednou po načtení
   var VARIETY = ["happy", "wave", "eat-cookie", "breathIN-OUT"];
-  var VARIETY_MIN_MS = 7000;          // jak často oživit
+  var VARIETY_MIN_MS = 7000;          // jak dlouho zůstat v idle než přijde oživení
   var VARIETY_MAX_MS = 13000;
-  var ONESHOT_MS = 2600;              // přibližná délka one-shot animace než se vrátí idle
 
   var VIEW_MODEL = "RJ_Data";
   var CHARACTER_PROP = "CharacterSelect";
@@ -65,36 +64,24 @@
 
     var R = window.rive;
     var destroyed = false;
+    var mode = "variety";        // "variety" = hraje one-shot, "idle" = klidný základ
+    var pendingVariety = null;   // nastaveno před přerušením idle; onStop ho vyzvedne
     var varietyTimer = null;
-    var oneShotTimer = null;
-
-    function play(name) {
-      // stop() ukončí vše ostatní → na plátně běží jen jedna animace (žádné překrývání)
-      try { riveInstance.stop(); } catch (_) {}
-      try { riveInstance.play(name); } catch (_) {}
-    }
-
-    function goIdle() {
-      play(IDLE);
-      scheduleVariety();
-    }
 
     function scheduleVariety() {
       if (varietyTimer) clearTimeout(varietyTimer);
       varietyTimer = setTimeout(function () {
         if (destroyed) return;
-        play(randomFrom(VARIETY));
-        if (oneShotTimer) clearTimeout(oneShotTimer);
-        oneShotTimer = setTimeout(function () {
-          if (!destroyed) goIdle();
-        }, ONESHOT_MS);
+        // Přeruš idle — onStop pak rozjede vybranou variety animaci.
+        pendingVariety = randomFrom(VARIETY);
+        try { riveInstance.stop(IDLE); } catch (_) {}
       }, randomBetween(VARIETY_MIN_MS, VARIETY_MAX_MS));
     }
 
     var riveInstance = new R.Rive({
       src: "/assets/luna/luna.riv",
       canvas: canvas,
-      autoplay: false,                // přehrávání řídíme sami
+      autoplay: false,
       layout: new R.Layout({ fit: R.Fit.Contain, alignment: R.Alignment.Center }),
       onLoad: function () {
         try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
@@ -115,11 +102,9 @@
         canvas.classList.add("luna-loaded");
         if (fallback) fallback.style.display = "none";
 
-        // Intro: zamávání po načtení, pak přechod na idle.
-        play(INTRO);
-        oneShotTimer = setTimeout(function () {
-          if (!destroyed) goIdle();
-        }, ONESHOT_MS);
+        // Intro zamávání; chová se jako variety → po doběhnutí přejde na idle.
+        mode = "variety";
+        try { riveInstance.play(INTRO); } catch (_) {}
 
         if (DEBUG) {
           var lines = [];
@@ -128,6 +113,28 @@
             lines.push("animations = " + JSON.stringify(riveInstance.animationNames));
           } catch (e) { lines.push("diag ERR " + e); }
           showDebug(lines);
+        }
+      },
+      onStop: function () {
+        if (destroyed) return;
+
+        if (pendingVariety) {
+          // Idle bylo přerušeno kvůli oživení → přehraj vybranou animaci do konce.
+          var v = pendingVariety;
+          pendingVariety = null;
+          mode = "variety";
+          try { riveInstance.play(v); } catch (_) {}
+          return;
+        }
+
+        if (mode === "variety") {
+          // One-shot (intro/variety) doběhl → zpět na klidné idle a naplánuj další.
+          mode = "idle";
+          try { riveInstance.play(IDLE); } catch (_) {}
+          scheduleVariety();
+        } else {
+          // idle není smyčka a doběhlo → znovu spusť (variety časovač běží dál).
+          try { riveInstance.play(IDLE); } catch (_) {}
         }
       },
       onLoadError: function () {
@@ -147,7 +154,6 @@
     window.addEventListener("pagehide", function () {
       destroyed = true;
       if (varietyTimer) clearTimeout(varietyTimer);
-      if (oneShotTimer) clearTimeout(oneShotTimer);
       try { riveInstance.cleanup(); } catch (_) {}
     }, { once: true });
   }
