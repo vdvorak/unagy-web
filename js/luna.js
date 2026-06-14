@@ -2,14 +2,13 @@
  * luna.js — Rive companion (Luna) pro Unagy landing page.
  * Vanilla JS, žádný framework. Rive runtime z CDN (@rive-app/canvas@2 → window.rive).
  *
- * Záměrně přehráváme JEDINOU klidnou idle animaci ("anim_idle") ve smyčce —
- * žádné překrývání / rychlé cyklení. Postavu vybíráme přes data binding (RJ_Data).
+ * Postavu řídí VÝCHOZÍ state machine artboardu (má vlastní klidný idle/blink) —
+ * jen ji necháme běžet (autoplay) a přes data binding vybereme postavu + klidný výraz.
+ * Žádné vlastní střídání animací (to se přehrávalo přes sebe a moc rychle).
  */
 
 (function () {
   "use strict";
-
-  var IDLE_ANIM = "anim_idle";
 
   var VIEW_MODEL = "RJ_Data";
   var CHARACTER_PROP = "CharacterSelect";
@@ -28,23 +27,17 @@
     }
 
     var R = window.rive;
-    var destroyed = false;
-
-    function playIdle() {
-      try { riveInstance.play(IDLE_ANIM); } catch (_) {}
-    }
-
     var riveInstance = new R.Rive({
       src: "/assets/luna/luna.riv",
       canvas: canvas,
-      // Nepřehráváme state machine ani autoplay — řídíme jen jednu idle animaci.
-      autoplay: false,
+      // Výchozí state machine se rozběhne sama a drží klidný idle.
+      autoplay: true,
       layout: new R.Layout({ fit: R.Fit.Contain, alignment: R.Alignment.Center }),
       onLoad: function () {
         // Bez resize renderuje Rive do špatně dimenzovaného plátna (často prázdné/rozmazané).
         try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
 
-        // Data binding: pevná postava + klidný výraz.
+        // Data binding: pevná postava + klidný výraz (ne picker, jen výchozí stav).
         try {
           var vm = riveInstance.viewModelByName(VIEW_MODEL);
           var inst = vm && vm.instance();
@@ -60,11 +53,20 @@
         canvas.classList.add("luna-loaded");
         if (fallback) fallback.style.display = "none";
 
-        playIdle();
-      },
-      onStop: function () {
-        // Idle udržuj ve smyčce (jediná přehrávaná animace).
-        if (!destroyed) playIdle();
+        // DIAGNOSTIKA: vypiš state machine a jejich vstupy (kvůli napojení mávnutí).
+        try {
+          var sms = riveInstance.stateMachineNames || [];
+          console.log("luna.js: stateMachineNames =", sms,
+                      "| animationNames =", riveInstance.animationNames);
+          sms.forEach(function (sm) {
+            try {
+              var inputs = (riveInstance.stateMachineInputs(sm) || []).map(function (i) {
+                return i.name + " (type " + i.type + ")";
+              });
+              console.log("luna.js: inputs[" + sm + "] =", inputs);
+            } catch (e) { console.warn("luna.js: inputs err", sm, e); }
+          });
+        } catch (e) { console.warn("luna.js: diag err", e); }
       },
       onLoadError: function () {
         console.warn("luna.js: luna.riv se nepodařilo načíst, ponechávám fallback.");
@@ -80,7 +82,6 @@
     });
 
     window.addEventListener("pagehide", function () {
-      destroyed = true;
       try { riveInstance.cleanup(); } catch (_) {}
     }, { once: true });
   }
