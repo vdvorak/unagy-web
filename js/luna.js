@@ -2,32 +2,20 @@
  * luna.js — Rive companion (Luna) pro Unagy landing page.
  * Vanilla JS, žádný framework. Rive runtime z CDN (@rive-app/canvas@2 → window.rive).
  *
- * Postava je řízená state machine + data binding (view model "RJ_Data"):
- *   - CharacterSelect: která postava (Orson/Merv) — pevná volba, ne picker
- *   - FaceEmotion: výraz (Neutral/Happy/Eating/…) — periodicky náhodně střídáme
- * State machine řídí rig, takže oživení NEděláme přes play(anim_*), ale přes enum.
+ * Záměrně přehráváme JEDINOU klidnou idle animaci ("anim_idle") ve smyčce —
+ * žádné překrývání / rychlé cyklení. Postavu vybíráme přes data binding (RJ_Data).
  */
 
 (function () {
   "use strict";
 
+  var IDLE_ANIM = "anim_idle";
+
   var VIEW_MODEL = "RJ_Data";
   var CHARACTER_PROP = "CharacterSelect";
   var CHARACTER = "Orson";
-
   var FACE_PROP = "FaceEmotion";
-  // Pozitivní/klidné výrazy (terapeutický tón). Neutral má vyšší váhu = převažuje klid.
-  var FACE_VARIETY = ["Neutral", "Neutral", "Happy", "Happy", "Eating"];
-  var VARIETY_MIN_MS = 4000;
-  var VARIETY_MAX_MS = 8000;
-
-  function randomBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  function randomFrom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
+  var FACE_DEFAULT = "Neutral";
 
   function initLuna() {
     var canvas = document.getElementById("luna-canvas");
@@ -41,30 +29,22 @@
 
     var R = window.rive;
     var destroyed = false;
-    var varietyTimer = null;
-    var faceEnum = null;
 
-    function scheduleVariety() {
-      if (destroyed || !faceEnum) return;
-      varietyTimer = setTimeout(function () {
-        varietyTimer = null;
-        if (destroyed) return;
-        try { faceEnum.value = randomFrom(FACE_VARIETY); } catch (_) {}
-        scheduleVariety();
-      }, randomBetween(VARIETY_MIN_MS, VARIETY_MAX_MS));
+    function playIdle() {
+      try { riveInstance.play(IDLE_ANIM); } catch (_) {}
     }
 
     var riveInstance = new R.Rive({
       src: "/assets/luna/luna.riv",
       canvas: canvas,
-      // Bez explicitního stateMachines přehraje Rive výchozí state machine artboardu.
-      autoplay: true,
+      // Nepřehráváme state machine ani autoplay — řídíme jen jednu idle animaci.
+      autoplay: false,
       layout: new R.Layout({ fit: R.Fit.Contain, alignment: R.Alignment.Center }),
       onLoad: function () {
         // Bez resize renderuje Rive do špatně dimenzovaného plátna (často prázdné/rozmazané).
         try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
 
-        // Data binding: pevná postava + reference na enum výrazu pro oživení.
+        // Data binding: pevná postava + klidný výraz.
         try {
           var vm = riveInstance.viewModelByName(VIEW_MODEL);
           var inst = vm && vm.instance();
@@ -72,17 +52,19 @@
             riveInstance.bindViewModelInstance(inst);
             var charEnum = inst.enum(CHARACTER_PROP);
             if (charEnum) charEnum.value = CHARACTER;
-            faceEnum = inst.enum(FACE_PROP);
+            var faceEnum = inst.enum(FACE_PROP);
+            if (faceEnum) faceEnum.value = FACE_DEFAULT;
           }
-          console.log("luna.js: data binding ok, faceEnum =", !!faceEnum);
-        } catch (e) {
-          console.warn("luna.js: data binding selhalo:", e);
-        }
+        } catch (_) {}
 
         canvas.classList.add("luna-loaded");
         if (fallback) fallback.style.display = "none";
 
-        scheduleVariety();
+        playIdle();
+      },
+      onStop: function () {
+        // Idle udržuj ve smyčce (jediná přehrávaná animace).
+        if (!destroyed) playIdle();
       },
       onLoadError: function () {
         console.warn("luna.js: luna.riv se nepodařilo načíst, ponechávám fallback.");
@@ -99,7 +81,6 @@
 
     window.addEventListener("pagehide", function () {
       destroyed = true;
-      if (varietyTimer) clearTimeout(varietyTimer);
       try { riveInstance.cleanup(); } catch (_) {}
     }, { once: true });
   }
