@@ -4,19 +4,24 @@
 
 ## Aktuální fokus
 
-**Setup HOTOVÝ** (Watson, 2026-06-14). Projekt `unagy-web` zakladován:
-statický landing web pro aplikaci Unagy (unagy.cz). Stack = plain HTML/CSS,
-hosting = GitHub Pages, profil = solo (7 aktivních agentů).
+**Landing page LIVE** (2026-06-14). Statický web pro Unagy nasazený na
+**https://unagy.cz/** (GitHub Pages + Actions, custom doména, HTTPS). Obsah je
+zatím **mock s placeholdery**. Brand ve stylu Unagy + companion **Luna** (Rive).
+Detail viz `handoffs/2026-06-14-landing-luna.md`.
 
-Žádná otevřená wave. Připraven na první feature.
+Žádná otevřená wave. Čeká se na finální vstupy uživatele (store URL, texty, logo).
 
-## Open Items
+## Hotové (2026-06-14)
+- [x] **Landing page** — `index.html` + `css/` + `404.html`, brand z UnagyDev tokenů
+- [x] **GitHub Pages** — repo vdvorak/unagy-web, Actions deploy, unagy.cz, HTTPS (Wedos DNS)
+- [x] **Companion Luna** — Rive animace (`assets/luna/`, `js/luna.js`): wave na load,
+  idle základ, náhodné variety
 
-- [ ] **První feature: landing page** — implementace `index.html` + `css/` + `404.html`
-  dle vize. Doporučený vstup: spec přes `vision-po` nebo rovnou implementace přes
-  `peter-web` (projekt je jednoduchý, spec je v PROJECT-CONSTITUTION).
-- [ ] **GitHub Pages setup** — nasadit repo na GitHub Pages + custom doménu unagy.cz
-  (CNAME, DNS). Vlastní `alfred-devops`.
-- [ ] **QR kódy** — připravit statické SVG/PNG pro Google Play a App Store.
-  URL aplikací potřebuje uživatel dodat.
-- [ ] **OG obrázek** — připravit `og-image.png` pro Open Graph (sociální sítě).
+## Open Items (placeholdery → produkční obsah)
+
+- [ ] **Store URL** (Google Play + App Store) → nahradit `#TODO-*-url` + reálné QR kódy
+- [ ] **Logo** (zatím textové „U")
+- [ ] **Finální texty** — hero copy, web-app popis, kontaktní e-mail
+- [ ] **OG obrázek** — `og-image.png` 1200×630 (teď SVG placeholder)
+- [ ] **robots.txt + sitemap** (alfred-devops)
+- [ ] **Odstranit debug** z `js/luna.js` (`?debug=1`) po odsouhlasení tempa Luny
