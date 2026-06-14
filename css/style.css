@@ -266,6 +266,7 @@ section {
 .hero__luna-area {
   position: relative;
   width: 200px;
+  height: 320px; /* drží rozměr i po skrytí fallbacku (canvas je absolutní) */
   flex-shrink: 0;
 }
 
@@ -670,6 +671,7 @@ section {
 
   .hero__luna-area {
     width: 220px;
+    height: 352px;
     order: 2;
     flex-shrink: 0;
   }
@@ -739,6 +741,7 @@ section {
 
   .hero__luna-area {
     width: 250px;
+    height: 400px;
   }
 
   .hero__luna-fallback {
