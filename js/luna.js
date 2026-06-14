@@ -10,6 +10,11 @@
   "use strict";
 
   var STATE_MACHINE = "00main";
+  // Artboard nevykreslí žádnou postavu, dokud se přes data binding nevybere.
+  // Nejde o uživatelský picker — jen pevně zvolíme, jak Luna vypadá.
+  var VIEW_MODEL = "RJ_Data";
+  var CHARACTER_PROP = "CharacterSelect";
+  var CHARACTER = "Orson";
 
   function initLuna() {
     var canvas = document.getElementById("luna-canvas");
@@ -31,6 +36,17 @@
       onLoad: function () {
         // Bez resize renderuje Rive do špatně dimenzovaného plátna (často prázdné/rozmazané).
         try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
+
+        // Nastav postavu (jinak artboard nevykreslí nic). Není to picker — pevná volba.
+        try {
+          var vm = riveInstance.viewModelByName(VIEW_MODEL);
+          var inst = vm && vm.instance();
+          if (inst) {
+            riveInstance.bindViewModelInstance(inst);
+            var en = inst.enum(CHARACTER_PROP);
+            if (en) en.value = CHARACTER;
+          }
+        } catch (_) {}
 
         canvas.classList.add("luna-loaded");
         if (fallback) fallback.style.display = "none";
