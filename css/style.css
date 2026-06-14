@@ -1,7 +1,7 @@
 /* =============================================================
    style.css — Unagy landing page
    Mobile-first, plain CSS, žádný framework
-   Importuje tokens.css (přes <link> v HTML, ne @import)
+   Warm dark theme. Tokeny v tokens.css.
    ============================================================= */
 
 /* ---- Reset & base ----------------------------------------- */
@@ -20,11 +20,11 @@ html {
 }
 
 body {
-  font-family: var(--font-family-base);
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-page);
+  color: var(--color-text);
+  background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,18 +36,18 @@ img {
 }
 
 a {
-  color: var(--color-link);
+  color: var(--color-primary);
   text-decoration: underline;
   transition: color var(--transition-fast);
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--color-link-hover);
+  color: var(--color-primary-strong);
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-brand-primary);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
@@ -72,8 +72,8 @@ a:focus-visible {
   top: -100%;
   left: var(--space-4);
   padding: var(--space-2) var(--space-4);
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-dark);
+  background: var(--color-primary);
+  color: var(--color-bg);
   font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -83,7 +83,7 @@ a:focus-visible {
 
 .skip-link:focus {
   top: var(--space-4);
-  outline: 2px solid var(--color-text-on-dark);
+  outline: 2px solid var(--color-text);
   outline-offset: 2px;
 }
 
@@ -95,7 +95,7 @@ a:focus-visible {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  font-family: var(--font-family-base);
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
   line-height: 1.4;
@@ -111,34 +111,35 @@ a:focus-visible {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-brand-primary);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
 
 .btn--primary {
-  background-color: var(--color-btn-primary-bg);
-  color: var(--color-btn-primary-text);
-  border-color: var(--color-btn-primary-bg);
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border-color: var(--color-primary);
 }
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  background-color: var(--color-btn-primary-hover-bg);
-  border-color: var(--color-btn-primary-hover-bg);
-  color: var(--color-btn-primary-text);
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-primary-strong);
+  border-color: var(--color-primary-strong);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-glow);
 }
 
 .btn--outline {
   background-color: transparent;
-  color: var(--color-btn-outline-text);
-  border-color: var(--color-btn-outline-border);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .btn--outline:hover,
 .btn--outline:focus-visible {
-  background-color: var(--color-btn-outline-hover-bg);
-  color: var(--color-btn-outline-text);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  border-color: var(--color-primary-strong);
 }
 
 .btn--large {
@@ -152,9 +153,9 @@ a:focus-visible {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255,255,255,0.95);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-header-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-soft);
 }
 
 .site-header__inner {
@@ -173,14 +174,15 @@ a:focus-visible {
 }
 
 .site-logo__wordmark {
+  font-family: var(--font-serif);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-brand-primary);
+  color: var(--color-primary);
   letter-spacing: -0.02em;
 }
 
 .site-nav {
-  display: none;  /* zobrazeno na tabletu+ */
+  display: none;
 }
 
 .site-nav__list {
@@ -194,10 +196,11 @@ a:focus-visible {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .site-nav__link:hover {
-  color: var(--color-brand-primary);
+  color: var(--color-primary);
 }
 
 .site-header__cta {
@@ -212,24 +215,27 @@ section {
 }
 
 .section--alt {
-  background-color: var(--color-bg-section-alt);
+  background-color: var(--color-surface);
 }
 
 .section__eyebrow {
   display: block;
+  font-family: var(--font-body);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-brand-primary);
+  color: var(--color-primary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 
 .section__title {
+  font-family: var(--font-serif);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
+  font-style: normal;
   line-height: var(--line-height-tight);
-  color: var(--color-text-primary);
+  color: var(--color-text);
   margin-bottom: var(--space-4);
 }
 
@@ -243,9 +249,9 @@ section {
 /* ---- HERO SEKCE ------------------------------------------- */
 
 .hero {
-  background-color: var(--color-brand-warm);
-  padding-block: var(--space-20) var(--space-16);
-  text-align: center;
+  background-color: var(--color-bg);
+  padding-block: var(--space-16) var(--space-12);
+  overflow: hidden;
 }
 
 .hero__inner {
@@ -253,9 +259,79 @@ section {
   flex-direction: column;
   align-items: center;
   gap: var(--space-6);
+  text-align: center;
 }
 
-.hero__logo-area {
+/* Luna companion area */
+.hero__luna-area {
+  position: relative;
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.hero__luna-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 320px;
+  border-radius: var(--radius-xl);
+  /* decorative gradient: alpha variants of --color-primary not in token set */
+  background: radial-gradient(ellipse at 50% 60%,
+    color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
+    color-mix(in srgb, var(--color-primary) 6%, transparent) 55%,
+    transparent 80%);
+  border: 1px solid var(--color-border-soft);
+}
+
+.hero__luna-fallback-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-muted-2);
+}
+
+.hero__luna-fallback-blob {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  /* decorative blob: alpha variants of --color-primary / --color-primary-strong */
+  background: radial-gradient(circle at 40% 35%,
+    color-mix(in srgb, var(--color-primary-strong) 45%, transparent),
+    color-mix(in srgb, var(--color-primary) 20%, transparent) 60%,
+    transparent 100%);
+  box-shadow: var(--shadow-glow);
+  animation: luna-pulse 3s ease-in-out infinite;
+}
+
+@keyframes luna-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%       { transform: scale(1.06); opacity: 1; }
+}
+
+.hero__luna-fallback-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+}
+
+/* Canvas: skryt dokud nezobrazuje Rive */
+#luna-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#luna-canvas.luna-loaded {
+  opacity: 1;
+}
+
+/* Logo / brand area */
+.hero__brand {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,36 +339,37 @@ section {
 }
 
 .hero__logo-placeholder {
-  /* TODO: nahradit <img src="/img/logo.svg"> když logo bude k dispozici */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
-  background-color: var(--color-brand-primary);
-  border-radius: var(--radius-xl);
-  color: var(--color-text-on-dark);
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-primary);
+  font-family: var(--font-serif);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  letter-spacing: -0.03em;
   user-select: none;
-  box-shadow: var(--shadow-md);
 }
 
 .hero__app-name {
+  font-family: var(--font-serif);
   font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--color-text);
   line-height: var(--line-height-tight);
   letter-spacing: -0.02em;
 }
 
+/* TODO: finalni marketingovy tagline */
 .hero__tagline {
-  /* TODO: nahradit finálním marketingovým textem */
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  max-width: 50ch;
+  max-width: 46ch;
 }
 
 .hero__actions {
@@ -307,6 +384,7 @@ section {
 
 .download {
   padding-block: var(--space-16);
+  background-color: var(--color-bg);
 }
 
 .download__header {
@@ -326,90 +404,63 @@ section {
   flex-direction: column;
   align-items: center;
   gap: var(--space-5);
-  background-color: var(--color-bg-page);
-  border: 1px solid var(--color-border-light);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-xl);
   padding: var(--space-8);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   width: 100%;
   max-width: 320px;
-  transition: box-shadow var(--transition-base);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .store-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-glow), var(--shadow-md);
+  border-color: var(--color-border);
 }
 
 .store-card__title {
+  font-family: var(--font-serif);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  color: var(--color-text);
 }
 
-/* QR placeholder box */
-.qr-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
+/* QR placeholder img styling */
+.qr-placeholder-img {
   width: var(--qr-size-mobile);
   height: var(--qr-size-mobile);
-  background-color: var(--color-placeholder-bg);
-  border: 2px dashed var(--color-placeholder-border);
   border-radius: var(--radius-md);
-  color: var(--color-placeholder-text);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  text-align: center;
-  padding: var(--space-3);
-  line-height: var(--line-height-base);
+  border: 1px solid var(--color-border-soft);
+  background-color: var(--color-surface-2);
 }
 
-.qr-placeholder__icon {
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.qr-placeholder__label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Reálný QR obrázek (bude aktivní po dodání finálních URL) */
-.qr-img {
-  display: none; /* TODO: zobrazit po nahrazení placeholderů */
-  width: var(--qr-size-mobile);
-  height: var(--qr-size-mobile);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Store badge (tlačítko s logem obchodu) */
+/* Store badge */
 .store-badge {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border: 1.5px solid var(--color-border-light);
+  padding: var(--space-3) var(--space-5);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   text-decoration: none;
-  background-color: var(--color-text-primary);
-  color: var(--color-text-on-dark);
-  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
 }
 
 .store-badge:hover,
 .store-badge:focus-visible {
-  background-color: var(--color-store-badge-hover-bg);
-  box-shadow: var(--shadow-sm);
-  color: var(--color-text-on-dark);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+  color: var(--color-text);
 }
 
 .store-badge:focus-visible {
-  outline: 2px solid var(--color-brand-primary);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
 
@@ -428,7 +479,7 @@ section {
 .store-badge__sub {
   font-size: 0.65rem;
   font-weight: var(--font-weight-normal);
-  opacity: 0.85;
+  opacity: 0.75;
   line-height: 1.2;
   letter-spacing: 0.02em;
 }
@@ -442,19 +493,19 @@ section {
 .download__fallback {
   text-align: center;
   margin-top: var(--space-10);
-  color: var(--color-text-muted);
+  color: var(--color-muted-2);
   font-size: var(--font-size-sm);
 }
 
 .download__fallback a {
-  color: var(--color-brand-primary);
+  color: var(--color-primary);
   font-weight: var(--font-weight-medium);
 }
 
 /* ---- WEB APP SEKCE ---------------------------------------- */
 
 .web-app {
-  background-color: var(--color-bg-section-alt);
+  background-color: var(--color-surface);
   text-align: center;
   padding-block: var(--space-16);
 }
@@ -467,7 +518,6 @@ section {
 }
 
 .web-app__description {
-  /* TODO: nahradit finálním popisem webové verze */
   font-size: var(--font-size-md);
   color: var(--color-text-secondary);
   max-width: 48ch;
@@ -476,19 +526,20 @@ section {
 
 .web-app__url-hint {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-muted-2);
 }
 
 .web-app__url-hint strong {
-  color: var(--color-brand-primary);
+  color: var(--color-primary);
 }
 
 /* ---- FOOTER ----------------------------------------------- */
 
 .site-footer {
-  background-color: var(--color-bg-footer);
-  color: var(--color-text-on-dark-muted);
+  background-color: var(--color-surface-2);
+  color: var(--color-text-secondary);
   padding-block: var(--space-12);
+  border-top: 1px solid var(--color-border-soft);
 }
 
 .site-footer__inner {
@@ -500,15 +551,16 @@ section {
 }
 
 .site-footer__logo {
+  font-family: var(--font-serif);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-on-dark);
+  color: var(--color-text);
   text-decoration: none;
   letter-spacing: -0.01em;
 }
 
 .site-footer__logo:hover {
-  color: var(--color-brand-secondary);
+  color: var(--color-primary);
 }
 
 .site-footer__links {
@@ -520,22 +572,22 @@ section {
 }
 
 .site-footer__links a {
-  color: var(--color-text-on-dark-muted);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .site-footer__links a:hover {
-  color: var(--color-text-on-dark);
+  color: var(--color-primary);
 }
 
 .site-footer__copy {
   font-size: var(--font-size-xs);
-  color: var(--color-text-on-dark-muted);
-  opacity: 0.7;
+  color: var(--color-muted-2);
 }
 
-/* ---- Placeholder notice (dev/staging viditelnost) --------- */
+/* ---- Placeholder notice ----------------------------------- */
 
 .placeholder-notice {
   display: inline-flex;
@@ -551,6 +603,52 @@ section {
   white-space: nowrap;
 }
 
+/* ---- 404 stránka ------------------------------------------ */
+
+.error-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-8);
+  background-color: var(--color-bg);
+}
+
+.error-page__code {
+  font-family: var(--font-serif);
+  font-size: 6rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+  opacity: 0.35;
+  margin-bottom: var(--space-4);
+}
+
+.error-page__title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.error-page__text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  max-width: 40ch;
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+.error-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
 /* ---- Responsive: tablet (768px+) -------------------------- */
 
 @media (min-width: 48rem) {
@@ -559,11 +657,42 @@ section {
   }
 
   .hero {
-    padding-block: var(--space-24) var(--space-20);
+    padding-block: var(--space-20) var(--space-16);
+  }
+
+  .hero__inner {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    gap: var(--space-12);
+    justify-content: center;
+  }
+
+  .hero__luna-area {
+    width: 220px;
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  .hero__luna-fallback {
+    width: 220px;
+    height: 352px;
+  }
+
+  .hero__content {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 420px;
+  }
+
+  .hero__actions {
+    justify-content: flex-start;
   }
 
   .hero__app-name {
-    font-size: calc(var(--font-size-3xl) * 1.3);
+    font-size: calc(var(--font-size-3xl) * 1.2);
   }
 
   .hero__tagline {
@@ -599,14 +728,22 @@ section {
 /* ---- Responsive: desktop (1024px+) ------------------------ */
 
 @media (min-width: 64rem) {
-  .qr-placeholder,
-  .qr-img {
+  .qr-placeholder-img {
     width: var(--qr-size-desktop);
     height: var(--qr-size-desktop);
   }
 
   .hero {
     padding-block: var(--space-24);
+  }
+
+  .hero__luna-area {
+    width: 250px;
+  }
+
+  .hero__luna-fallback {
+    width: 250px;
+    height: 400px;
   }
 
   .download__grid {
@@ -619,61 +756,18 @@ section {
   }
 }
 
-/* ---- 404 stránka ------------------------------------------ */
-
-.error-page {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--space-8);
-  background-color: var(--color-brand-warm);
-}
-
-.error-page__code {
-  font-size: 6rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-brand-primary);
-  line-height: 1;
-  opacity: 0.4;
-  margin-bottom: var(--space-4);
-}
-
-.error-page__title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-4);
-}
-
-.error-page__text {
-  font-size: var(--font-size-md);
-  color: var(--color-text-secondary);
-  max-width: 40ch;
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-8);
-}
-
-.error-page__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  justify-content: center;
-}
-
 /* ---- Print ------------------------------------------------ */
 
 @media print {
   .site-header,
   .hero__actions,
-  .skip-link {
+  .skip-link,
+  .hero__luna-area {
     display: none;
   }
 
   body {
-    color: var(--color-print-text);
-    background: var(--color-print-bg);
+    color: var(--color-text);
+    background: var(--color-bg);
   }
 }

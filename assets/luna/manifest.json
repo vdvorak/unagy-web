@@ -1,0 +1,20 @@
+{
+  "name": "Luna",
+  "animations": {
+    "idle":      "idle",
+    "happy":     "happy",
+    "celebrate": "eat-cookie",
+    "interact":  "wave"
+  },
+  "variety": ["wave", "eat-cookie", "happy"],
+  "viewModel": {
+    "characterSelect": {
+      "name": "RJ_Data",
+      "property": "CharacterSelect",
+      "options": [
+        { "id": "orson", "label": "Orson", "value": "Orson" },
+        { "id": "merv", "label": "Merv", "value": "Merv" }
+      ]
+    }
+  }
+}
