@@ -15,13 +15,13 @@
 (function () {
   "use strict";
 
-  var VERSION = 9;
+  var VERSION = 10;
 
   var IDLE = "idle";
   var INTRO = "wave";                 // jednou po načtení
   var VARIETY = ["happy", "wave", "eat-cookie", "breathIN-OUT"];
-  var VARIETY_MIN_MS = 7000;          // jak dlouho zůstat v idle než přijde oživení
-  var VARIETY_MAX_MS = 13000;
+  var VARIETY_MIN_MS = 2500;          // jak dlouho zůstat v idle než přijde oživení
+  var VARIETY_MAX_MS = 5000;
 
   var VIEW_MODEL = "RJ_Data";
   var CHARACTER_PROP = "CharacterSelect";
