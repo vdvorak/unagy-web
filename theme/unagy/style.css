@@ -1,0 +1,242 @@
+/*
+Theme Name: Unagy
+Theme URI: https://unagy.cz
+Author: Vitek Dvorak
+Description: Prezentační web appky Unagy – podpůrné aplikace pro lidi s poruchami příjmu potravy a jejich rodiny, pod záštitou psychoterapeutky Terezie Nagy Štolbové.
+Version: 1.0.0
+Text Domain: unagy
+*/
+
+/* ---------- Tokeny ---------- */
+:root {
+	--font-heading: 'Fraunces', Georgia, serif;
+	--font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+	--color-bg: #fbf6f1;
+	--color-surface: #ffffff;
+	--color-surface-alt: #f4e9df;
+	--color-text: #2b2018;
+	--color-text-muted: #6b5d52;
+	--color-accent: #d08763;
+	--color-accent-dark: #b96b46;
+	--color-border: #e9ddd0;
+
+	--radius: 14px;
+	--shadow: 0 8px 24px rgba(43, 32, 24, 0.08);
+	--container-width: 880px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+	margin: 0;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-size: 17px;
+	line-height: 1.65;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--color-accent-dark); }
+
+h1, h2, h3 {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	line-height: 1.2;
+	margin: 0 0 0.5em;
+	color: var(--color-text);
+}
+h1 { font-size: clamp(2rem, 5vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+
+p { margin: 0 0 1em; }
+
+.container {
+	max-width: var(--container-width);
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+	position: absolute;
+	left: -999px;
+	top: auto;
+	background: var(--color-accent);
+	color: #fff;
+	padding: 12px 20px;
+	border-radius: 0 0 8px 0;
+	z-index: 100;
+	text-decoration: none;
+}
+.skip-link:focus { left: 0; top: 0; }
+
+/* ---------- Header ---------- */
+.site-header {
+	background: var(--color-surface);
+	border-bottom: 1px solid var(--color-border);
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+.site-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+.site-logo {
+	font-family: var(--font-heading);
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--color-text);
+	text-decoration: none;
+}
+.site-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+.site-nav a {
+	color: var(--color-text-muted);
+	text-decoration: none;
+	font-size: 0.95rem;
+	font-weight: 500;
+}
+.site-nav a:hover { color: var(--color-accent-dark); }
+
+/* ---------- Sekce ---------- */
+.section, .hero {
+	padding: 64px 0;
+}
+.section--alt { background: var(--color-surface-alt); }
+.hero {
+	background: var(--color-surface);
+	border-bottom: 1px solid var(--color-border);
+}
+
+/* ---------- Info karta (seminář / webinář) ---------- */
+.info-card {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 24px;
+	margin: 0 0 24px;
+	display: grid;
+	gap: 12px;
+}
+.info-card > div { display: flex; gap: 8px; flex-wrap: wrap; }
+.info-card dt { font-weight: 700; min-width: 160px; }
+.info-card dd { margin: 0; }
+.info-placeholder {
+	font-style: italic;
+	color: var(--color-text-muted);
+}
+
+/* ---------- Tlačítka ---------- */
+.btn {
+	display: inline-block;
+	padding: 14px 28px;
+	border-radius: 999px;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.95rem;
+}
+.btn--primary {
+	background: var(--color-accent);
+	color: #fff;
+}
+.btn--primary:hover { background: var(--color-accent-dark); }
+.btn--disabled {
+	display: inline-block;
+	padding: 14px 28px;
+	border-radius: 999px;
+	background: var(--color-border);
+	color: var(--color-text-muted);
+	font-weight: 700;
+	font-size: 0.95rem;
+}
+
+/* ---------- App store badges ---------- */
+.store-badges {
+	display: flex;
+	gap: 24px;
+	flex-wrap: wrap;
+	margin-top: 32px;
+}
+.store-badge {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius);
+	padding: 20px;
+	text-align: center;
+	min-width: 160px;
+}
+.store-badge img { margin: 0 auto 12px; border-radius: 8px; }
+.store-badge__link {
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-decoration: none;
+}
+.store-badge__soon {
+	display: block;
+	color: var(--color-text-muted);
+	font-weight: 600;
+	padding: 40px 0;
+}
+
+/* ---------- Kontakt ---------- */
+.contact-meta { color: var(--color-text-muted); }
+.contact-form { max-width: 560px; }
+
+/* Contact Form 7 – základní styl */
+.wpcf7-form p { margin-bottom: 16px; }
+.wpcf7-form label { display: block; font-weight: 600; margin-bottom: 6px; }
+.wpcf7-form input[type="text"],
+.wpcf7-form input[type="email"],
+.wpcf7-form input[type="tel"],
+.wpcf7-form textarea {
+	width: 100%;
+	padding: 12px 14px;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	font-family: var(--font-body);
+	font-size: 1rem;
+	background: var(--color-surface);
+	color: var(--color-text);
+}
+.wpcf7-form textarea { min-height: 140px; resize: vertical; }
+.wpcf7-form input[type="submit"] {
+	background: var(--color-accent);
+	color: #fff;
+	border: none;
+	border-radius: 999px;
+	padding: 14px 28px;
+	font-weight: 700;
+	font-size: 0.95rem;
+	cursor: pointer;
+}
+.wpcf7-form input[type="submit"]:hover { background: var(--color-accent-dark); }
+.wpcf7-not-valid-tip { color: #b3261e; font-size: 0.85rem; }
+.wpcf7-response-output { border-radius: 8px; padding: 12px 16px; margin-top: 16px; }
+
+/* ---------- Patička ---------- */
+.site-footer {
+	padding: 32px 0;
+	text-align: center;
+	color: var(--color-text-muted);
+	font-size: 0.9rem;
+}
+
+/* ---------- Responzivita ---------- */
+@media (max-width: 640px) {
+	.section, .hero { padding: 48px 0; }
+	.site-nav { gap: 12px; }
+	.site-nav a { font-size: 0.85rem; }
+	.info-card dt { min-width: 120px; }
+}
