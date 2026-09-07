@@ -190,6 +190,18 @@ p { margin: 0 0 1em; }
 	padding: 40px 0;
 }
 
+/* ---------- Text sekcí (editovatelný přes Stránky ve wp-adminu) ---------- */
+.section-text p,
+.section-text ul,
+.section-text ol {
+	margin: 0 0 1em;
+	font-family: var(--font-body);
+	color: var(--color-text);
+}
+.section-text > *:last-child { margin-bottom: 0; }
+.section-text ul,
+.section-text ol { padding-left: 1.25em; }
+
 /* ---------- Kontakt ---------- */
 .contact-meta { color: var(--color-text-muted); }
 .contact-form { max-width: 560px; }

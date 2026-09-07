@@ -37,7 +37,9 @@ Vlastní WordPress theme (bez parent theme) ve složce [`theme/unagy/`](theme/un
 
    Žádná z těchto hodnot není v kódu — dají se kdykoliv změnit přes wp-admin.
 
-4. **Doména** — `unagy.cz` teď ještě ukazuje na starý GitHub Pages web (statická landing page s Luna animací, nasazená dřív). Až bude WP verze hotová a otestovaná, přepoj DNS `unagy.cz` na WEDOS hosting (mimo tento repo, přes správu domény) a GitHub Pages nasazení v repu nechej vypnuté/smazané.
+4. **Textové odstavce sekcí** — při první aktivaci theme se v _Stránky_ automaticky založí 6 pomocných stránek `Text: …` (O mně, Semináře, Webináře, Aplikace, Podcast, Kontakt) předvyplněných zadaným textem. Terezie je může kdykoliv upravit v běžném WP editoru (Stránky → najít podle názvu → upravit → Aktualizovat) — editor tam povoluje jen odstavec a seznam, aby úpravou textu nešlo rozbít vzhled webu. Tyhle stránky nemají vlastní veřejnou URL (návštěvník je z nich přesměrován na homepage) — slouží jen jako zdroj textu pro příslušnou sekci. Nadpisy sekcí (H1/H2) zůstávají pevné v kódu, protože se na ně odkazuje navigace.
+
+5. **Doména** — `unagy.cz` teď ještě ukazuje na starý GitHub Pages web (statická landing page s Luna animací, nasazená dřív). Až bude WP verze hotová a otestovaná, přepoj DNS `unagy.cz` na WEDOS hosting (mimo tento repo, přes správu domény) a GitHub Pages nasazení v repu nechej vypnuté/smazané.
 
 ## Design
 

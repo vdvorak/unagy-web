@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* Přibližný náhled front-endové typografie přímo v editoru. */
+.editor-styles-wrapper {
+	font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	color: #2b2018;
+	font-size: 17px;
+	line-height: 1.65;
+	max-width: 700px;
+}
+.editor-styles-wrapper strong { color: #2b2018; }
+.editor-styles-wrapper a { color: #b96b46; }

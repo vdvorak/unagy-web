@@ -10,10 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'UNAGY_VERSION', '1.0.0' );
 
 require_once get_template_directory() . '/inc/theme-options.php';
+require_once get_template_directory() . '/inc/editable-sections.php';
 
 function unagy_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
+	add_theme_support( 'editor-styles' );
+	add_editor_style( 'editor-style.css' );
 }
 add_action( 'after_setup_theme', 'unagy_setup' );
 

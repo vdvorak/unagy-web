@@ -31,15 +31,14 @@ $cf7_shortcode    = unagy_get_option( 'cf7_shortcode' );
 <section class="hero" id="o-mne">
 	<div class="container">
 		<h1>Terezie Nagy Štolbová</h1>
-		<p>Jsem psychoterapeutka, autorka a lektorka. Specializuji se na psychoterapii <strong>poruch příjmu potravy</strong>. Pomáhám porozumět tomu, co se za nemocí skrývá, a hledat cestu ven – k větší svobodě, vztahu k sobě i vlastnímu tělu.</p>
-		<p>Anorexie, bulimie, přejídání i další podoby poruch příjmu potravy mohou postupně ovládnout celý život. V terapii hledáme, <strong>co nemoc říká, proč přišla a co potřebuje člověk změnit, aby ji už nepotřeboval.</strong></p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-o-mne' ); ?></div>
 	</div>
 </section>
 
 <section class="section" id="seminare">
 	<div class="container">
 		<h2>Odborné semináře</h2>
-		<p>Pravidelně nabízí semináře zaměřené na praxi v oblasti poruch příjmu potravy určené pro psychology, terapeuty a zdravotníky.</p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-seminare' ); ?></div>
 
 		<?php if ( $seminar_name ) : ?>
 			<dl class="info-card">
@@ -60,7 +59,7 @@ $cf7_shortcode    = unagy_get_option( 'cf7_shortcode' );
 <section class="section section--alt" id="webinare">
 	<div class="container">
 		<h2>Webináře pro veřejnost</h2>
-		<p>Edukativní online setkání pro každého, kdo se chce dozvědět více o PPP, prevenci nebo o tom, jak podpořit někoho blízkého.</p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-webinare' ); ?></div>
 
 		<?php if ( $webinar_topic ) : ?>
 			<dl class="info-card">
@@ -79,8 +78,7 @@ $cf7_shortcode    = unagy_get_option( 'cf7_shortcode' );
 <section class="section" id="aplikace">
 	<div class="container">
 		<h2>Aplikace Unagy</h2>
-		<p>Vyvíjíme podpůrnou aplikaci Unagy – digitálního průvodce pro lidi procházející poruchou příjmu potravy a jejich rodiny. Pomáhá zvládat náročné momenty v každodenním životě.</p>
-		<p>Chcete se zapojit do testování a pomoci nám aplikaci vylepšit?</p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-aplikace' ); ?></div>
 		<a class="btn btn--primary" href="<?php echo esc_url( $app_testers_url ); ?>">Chci testovat aplikaci Unagy</a>
 
 		<div class="store-badges">
@@ -107,7 +105,7 @@ $cf7_shortcode    = unagy_get_option( 'cf7_shortcode' );
 <section class="section section--alt" id="podcast">
 	<div class="container">
 		<h2>Podcast o poruchách příjmu potravy</h2>
-		<p>Otevřené rozhovory nejen o poruchách příjmu potravy. Podcast Terezie Nagy Štolbové a spisovatelky Petry Dvořákové přináší osobní příběhy, odborný pohled i rozhovory se zajímavými hosty.</p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-podcast' ); ?></div>
 
 		<?php if ( $podcast_url ) : ?>
 			<a class="btn btn--primary" href="<?php echo esc_url( $podcast_url ); ?>">Poslechnout si podcast zde</a>
@@ -120,7 +118,7 @@ $cf7_shortcode    = unagy_get_option( 'cf7_shortcode' );
 <section class="section" id="kontakt">
 	<div class="container">
 		<h2>Napište mi</h2>
-		<p>Máte dotaz, zájem o terapii nebo konzultaci? Využijte kontaktní formulář níže.</p>
+		<div class="section-text"><?php echo unagy_section_content( 'text-kontakt' ); ?></div>
 
 		<?php if ( $cf7_shortcode ) : ?>
 			<div class="contact-form"><?php echo do_shortcode( $cf7_shortcode ); ?></div>
